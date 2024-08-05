@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+</head>
+<body>
+  <form id="filterForm">
+    <label for="role">Role:</label>
+    <input type="text" id="role" name="role"><br><br>
+    <label for="industry">Industry:</label>
+    <input type="text" id="industry" name="industry"><br><br>
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country"><br><br>
+    <label for="cnae">CNAE:</label>
+    <input type="text" id="cnae" name="cnae"><br><br>
+    <input type="button" value="Submit" onclick="submitForm()">
+  </form>
+  <script>
+    function submitForm() {
+      const form = document.getElementById('filterForm');
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => data[key] = value);
+
+      google.script.run.withSuccessHandler((fileUrl) => {
+        window.open(fileUrl);
+      }).filterLeads(data);
+    }
+  </script>
+</body>
+</html>
